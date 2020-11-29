@@ -1,0 +1,21 @@
+body {
+  background-color: #ccc;
+  width: 100%;
+}
+
+#chart {
+  background-color: #ccc;
+  height: 500px;
+  width: 1000px;
+  margin: 50px auto;
+  border: solid 1px #000;
+}
+
+svg {
+  background-color: #fff;
+}
+
+.dot {
+  stroke: #000;
+  stroke-width: 1px;
+}
