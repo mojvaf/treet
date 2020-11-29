@@ -10,7 +10,7 @@
 <body>
     <div id="chart"></div>
    <script type="text/javascript" >
-   var margin= 30, width= 1000, height= 500
+   var margin= 30, width= 1000, height= 500, rValues= [2,15]
    var circles, xScale, yScale ;
 
    var svg= d3.select('#chart')
@@ -40,17 +40,17 @@
 
         xScale = d3.scaleLinear()
              .domain([xMinMax[0],xMinMax[1]])
-             .range([margin,width-margin]); 
+             .range([margin+rValues[1],width-margin-rValues[1]]); 
 
     
        yScale = d3.scaleLinear()
              .domain([yMinMax[1],yMinMax[0]])
-             .range([margin,height-margin]); 
+             .range([margin+rValues[1],height-margin-rValues[1]]); 
 
 
        rScale = d3.scaleLinear()
              .domain([rMinMax[0],rMinMax[1]])
-             .range([2,10]); 
+             .range([rValues[0],rValues[1]]); 
 
 
       cScale = d3.scaleOrdinal()
@@ -77,6 +77,23 @@
             .style('opacity', function(d){
                 return d.CHAS == 1 ? 1 : 0.3;
             })
+     
+         xAxis = d3.axisBottom(xScale).tickValues([xMinMax[0],xMinMax[1]])
+         yAxis = d3.axisLeft(yScale).tickValues([yMinMax[0],yMinMax[1]])
+
+        xAxisG = svg.append('g')
+             .attr('id','xAxis')
+             .attr('class','axis');
+        yAxisG = svg.append('g')
+             .attr('id','yAxis')
+             .attr('class','axis');
+
+
+          xAxisG.call(xAxis) 
+               .attr('transform', 'translate(0 ' + ( height-margin) + ')')  
+
+          yAxisG.call(yAxis) 
+               .attr('transform', 'translate(' + (margin) + ',0)')    
     })
 </script>
 </body>

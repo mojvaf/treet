@@ -19,3 +19,12 @@ svg {
   stroke: #000;
   stroke-width: 1px;
 }
+
+.axis line,
+.axis path {
+  stroke: #bbb;
+}
+
+.axis text {
+  fill: #bbb;
+}
