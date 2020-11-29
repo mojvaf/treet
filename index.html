@@ -9,6 +9,7 @@
 </head>
 <body>
     <div id="chart"></div>
+    <div id="tooltip"></div>
    <script type="text/javascript" >
    var margin= 30, width= 1000, height= 500, rValues= [2,15]
    var circles, xScale, yScale ;
@@ -39,7 +40,7 @@
       });
 
         xScale = d3.scaleLinear()
-             .domain([xMinMax[0],xMinMax[1]])
+             .domain([xMinMax[1],xMinMax[0]])
              .range([margin+rValues[1],width-margin-rValues[1]]); 
 
     
@@ -75,8 +76,23 @@
             .style('opacity', function(d){
                 return d.CHAS == 1 ? 1 : 0.3;
             })
-     
-         xAxis = d3.axisBottom(xScale).tickValues([xMinMax[0],xMinMax[1]])
+            .on('mouseover', function(d){
+                html = 'X | poor : ' + d.LSTAT + '<br/>';
+                html += 'Y | rooms: ' + d.RM + '<br/>' ;
+                html += 'r | rooms: ' + d.CHAS + '<br/>' ;
+                html += 'C | charles: ' + d.CHAS + '<br/>';
+                d3.select('#tooltip')
+                   .html(html)
+                   .style('left', d3.event.pageX - 100 + 'px')
+                   .style('top',  d3.event.pageY - 100 + 'px')
+                   .style('opacity', 0.85);
+            })
+            .on('mouseout', function(){
+                d3.select('#tooltip')
+                .style('left', -1000 + 'px')
+                .style('opacity', 0)
+            })
+         xAxis = d3.axisBottom(xScale).ticks(0)
          yAxis = d3.axisLeft(yScale).tickValues([yMinMax[0],yMinMax[1]])
 
         xAxisG = svg.append('g')
@@ -91,7 +107,22 @@
                .attr('transform', 'translate(0 ' + ( height-margin) + ')')  
 
           yAxisG.call(yAxis) 
-               .attr('transform', 'translate(' + (margin) + ',0)')    
+               .attr('transform', 'translate(' + (margin) + ',0)')   
+
+          svg.append('text')
+             .attr('x', xScale(xMinMax[0])) 
+             .attr('y',yScale(yMinMax[0])+ margin)
+             .attr('text-anchor', 'middle')
+             .attr('class', 'axisLabel')
+             .text('More Wealthy')     
+
+
+             svg.append('text')
+             .attr('x', xScale(xMinMax[1])) 
+             .attr('y',yScale(yMinMax[0])+ margin)
+             .attr('text-anchor', 'middle')
+             .attr('class', 'axisLabel')
+             .text('less Wealthy')     
 
        update()        
     })
