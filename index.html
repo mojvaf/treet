@@ -79,8 +79,8 @@
             .on('mouseover', function(d){
                 html = 'X | poor : ' + d.LSTAT + '<br/>';
                 html += 'Y | rooms: ' + d.RM + '<br/>' ;
-                html += 'r | rooms: ' + d.CHAS + '<br/>' ;
-                html += 'C | charles: ' + d.CHAS + '<br/>';
+                html += 'r | value: ' + d.CHAS + '<br/>' ;
+                html += 'C | close to rivers: ' + d.CHAS + '<br/>';
                 d3.select('#tooltip')
                    .html(html)
                    .style('left', d3.event.pageX - 100 + 'px')
