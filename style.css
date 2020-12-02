@@ -37,7 +37,7 @@ svg {
 #tooltip {
   position: absolute;
   background-color: #fff;
-  padding: 20px;
+  padding: 19px;
   border: solid 1px #000;
   opacity: 0;
 }
